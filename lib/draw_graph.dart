@@ -16,6 +16,7 @@ class LineGraph extends StatefulWidget {
   final double graphOpacity;
   final bool verticalFeatureDirection;
   final double descriptionHeight;
+  final EdgeInsets? descriptionPadding;
 
   LineGraph({
     required this.features,
@@ -25,6 +26,7 @@ class LineGraph extends StatefulWidget {
     this.fontFamily,
     this.graphColor = Colors.grey,
     this.showDescription = false,
+    this.descriptionPadding = const EdgeInsets.only(top: 20),
     this.graphOpacity = 0.3,
     this.verticalFeatureDirection = false,
     this.descriptionHeight = 80,
@@ -53,10 +55,9 @@ class _LineGraphState extends State<LineGraph> {
               ? Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    getGraph(Size(widget.size.width,
-                        widget.size.height - widget.descriptionHeight - 40)),
-                    SizedBox(height: 40),
+                    getGraph(Size(widget.size.width, widget.size.height - widget.descriptionHeight)),
                     Container(
+                      padding: widget.descriptionPadding,
                       height: widget.descriptionHeight,
                       child: getFeautures(),
                     )
@@ -97,8 +98,7 @@ class _LineGraphState extends State<LineGraph> {
     }
 
     return ListView(
-      scrollDirection:
-          widget.verticalFeatureDirection ? Axis.vertical : Axis.horizontal,
+      scrollDirection: widget.verticalFeatureDirection ? Axis.vertical : Axis.horizontal,
       children: featureDescriptions,
     );
   }
